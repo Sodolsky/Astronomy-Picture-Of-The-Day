@@ -1,0 +1,59 @@
+@mixin arrow($color) {
+  width: 12px;
+  height: 12px;
+  border: none;
+  background: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transform: scale(2.5);
+  &::before {
+    top: 2px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    content: "";
+    position: absolute;
+    transform: rotate(-45deg);
+    box-shadow: 2px 2px 0 $color, 3px 2px 0 $color, 2px 3px 0 $color,
+      3px 3px 0 $color;
+  }
+  &::after {
+    width: 0;
+    height: 0;
+    left: -1px;
+    bottom: 50%;
+    content: "•";
+    color: $color;
+    line-height: 0;
+    font-size: 14px;
+    position: absolute;
+    transition: left 0.1s ease-out, bottom 0.1s ease-out,
+      letter-spacing 0.1s ease-out;
+  }
+
+  &.-long {
+    width: 22px;
+    &::after {
+      left: 0;
+      content: "•••";
+      text-align: right;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    &::after {
+      left: 1px;
+    }
+    &.-long::after {
+      left: -0.19em;
+      letter-spacing: 0.1em;
+    }
+  }
+}
+
+.arrow {
+  @include arrow(white);
+}
